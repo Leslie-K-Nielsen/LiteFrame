@@ -1,2 +1,1 @@
-<?php
-//put contents here
+<footer></footer>

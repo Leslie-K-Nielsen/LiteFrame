@@ -1,2 +1,3 @@
-<?php
-//put contents here
+<body>	
+	<header>		
+	</header>
