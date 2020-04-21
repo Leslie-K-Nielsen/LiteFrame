@@ -9,9 +9,6 @@
 		public $db_object;
 		public $key_len;
 		
-		private $salt;
-		private $enc_pass;
-		
 		public $file_level;		
 		public $dynamic_header_text;
 		public $user_host;
@@ -150,78 +147,7 @@
 		}
 		
 		/* END UTILITY */
-		
-		
-		/* ------------------------------- */	
-		
-		
-		/* AUTHENTICATION FUNCTIONS */
-		
-		function SetSalt()
-		{
-			$this->salt = $this->GenerateKey('20');
-		}
-		
-		function SetEncryptedPassword($user_pass)
-		{
-			$enc_pass = crypt($user_pass, $this->salt);
-			$this->enc_pass = $enc_pass.$this->salt;
-		}
-		
-		function GetEncryptedPassword()
-		{
-			return $this->enc_pass;
-		}
-		
-		function HashAuthenticatingPassword($stored_password, $user_pass)
-		{
-			$len = strlen($stored_password);	
-			$start = $len - 20;
 			
-			$this->salt = substr($stored_password, $start); 		
-			$this->SetEncryptedPassword($user_pass);				
-		}		
-				function EnforceAuthentication()
-		{
-			if($this->VerifyAuthentication())
-			{
-				header("location: ");
-				die();
-			}
-		}
-		
-		function VerifyAuthentication()
-		{
-			$member_auth = $_SESSION['member_auth'];
-			$auth_session = explode(".", $member_auth);
-			
-			if(isset($auth_session[0]) && isset($auth_session[1]) && $auth_session[0] > 0 && strlen($auth_session[1]) == 30)		
-			{
-				return true;	
-			}
-			else
-			{
-				return false;
-			}
-		}	
-		
-		function GetAuthenticationStatus()
-		{
-			if(isset($_SESSION['member_auth']))
-			{
-				//Admin is authenticated
-				return true;
-			}
-			else
-			{
-				//Admin is NOT authenticated
-				return false;
-			}
-		}		
-		
-		/* END OF AUTHENTICATION FUNCTIONS */
-		
-		
 		/* ------------------------------- */			
 		
 		
