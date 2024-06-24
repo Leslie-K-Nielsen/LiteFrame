@@ -1,6 +1,6 @@
 <?php
 
-	class LiteFrameViewParsers extends LiteFrameController
+	class ViewParsers extends LiteFrameCore
 	{
 		/* OUTPUT PARSING AND DISPLAY */
 		

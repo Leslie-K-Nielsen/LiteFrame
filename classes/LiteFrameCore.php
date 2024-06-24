@@ -1,6 +1,6 @@
 <?php
 
-	class LiteFrameController
+	class LiteFrameCore
 	{
 	
 		/* GLOBALS */
@@ -124,22 +124,8 @@
 				
 			return count($result);
 		}
-		
-		//Sanitize for database and Implode Numerically Indexed Array
-		function DBSanatizeImplodeNumIDXArray($array, $glue)
-		{
-			$tmp_array = array();
-			
-			for($i = 0; $i < count($array); $i++)
-			{
-				$tmp_array[$i] = mysql_real_escape_string($array[$i]);
-			}
-			
-			return implode($glue, $tmp_array);
-		}		
-		
-		//Developer function for viewing array output	
-		function PrettyOutput($data)
+				
+		function P($data)
 		{
 			echo "<pre>";
 			print_r($data);

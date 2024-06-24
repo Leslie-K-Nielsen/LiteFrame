@@ -1,8 +1,8 @@
 <?php 
 
-	class LiteFrameImplementation extends LiteFrameController
+	class Implementation extends ViewParsers
 	{
-		//A virtual class for implementation to allow ease of scaling.
+		//Just a class for implementation.
 		//Just add any class in front of this one and change the inheritance to match and always instantiate from this class.
 	}
 

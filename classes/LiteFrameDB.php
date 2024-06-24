@@ -1,17 +1,12 @@
 <?php 
 
 	/* 
-		LiteFrame by Leslie K. Nielsen		
+		LiteFrame by Leslie K. Nielsen	
 		
-		*******
-		Adapted for : [Client or Application]
-		*******
-		
-		This copy of this adapted framework is the intellectual property of [Project Owner]. 
 		Rights to the original framework in all forms remains in place with a GNU Public license.
 	*/
 
-class LiteFrameModel
+class LiteFrameDB
 {
 	
 	/* CLASS DATA */
