@@ -16,8 +16,23 @@ $smtp_variables = array(
     'password' => ''
 );
 
+/* Theme parts */
+$theme_parts = array(
+    'header-parts' => array(
+        'assets-header',
+        'content-header'
+    ),
+    'footer-parts' => array(
+        'content-footer',
+        'assets-footer'
+    )
+);
+
 /* Init Environment Variables */
-$env_vars = array();
+$env_vars = array(
+    'theme_parts' => $theme_parts,
+    'theme_dir' => 'theme'
+);
 
 /* Instance Dependant Variables */	
 switch($this_instance)

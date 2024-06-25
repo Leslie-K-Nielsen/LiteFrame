@@ -1,1 +1,2 @@
-<footer></footer>
+<?php $this->ConditionalInlineJSAsset(); ?>
+</body>

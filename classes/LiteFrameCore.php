@@ -35,7 +35,17 @@
 		
 		
 		/* ------------------------------- */
+
+
+		/* INIT ENVIRONMENT */
+
+		public function SetEnvVars($env_vars)
+		{
+			$this->theme_parts = $env_vars['theme_parts'];
+			$this->theme_dir = $env_vars['theme_dir'];		
+		}
 		
+		/* ------------------------------- */
 	
 		/* UTILITY */
 	
@@ -163,46 +173,85 @@
 		/* ------------------------------- */			
 		
 		
-		/* CONTROLLER FUNCIONS */
+		/* THEME CONTROLLER FUNCIONS */
 		
+		function ThemeMergeCallback($html)
+		{
+			$html = (str_replace("{{incfilelevel}}", $this->file_level, $html));
+
+			return $html;
+		}
+
 		function ThemeHeader()
 		{
-			$pages = array('assets-header','content-header','main-navigation');
+			$pages = $this->theme_parts['header-parts'];
 			
+			$html = "";
+
 			for($p = 0; $p < count($pages); $p++)
 			{
-				if(file_exists($this->file_level.$pages[$p].".php"))
+				if(file_exists($this->file_level.$this->theme_dir.'/'.$pages[$p].".php"))
 				{
-					include $this->file_level.$pages[$p].".php";
+					ob_start();
+
+					include $this->file_level.$this->theme_dir.'/'.$pages[$p].".php";
+
+					$html.= ob_get_clean();
 				}
-			}		
+			}
+			
+			$html = $this->ThemeMergeCallback($html);
+
+			return $html;
 		}
 		
 		function ThemeFooter()
 		{
-			$pages = array('content-footer','assets-footer');
-			
+			$pages = $this->theme_parts['footer-parts'];
+
+			$html = "";
+
 			for($p = 0; $p < count($pages); $p++)
 			{
-				if(file_exists($this->file_level.$pages[$p].".php"))
+				if(file_exists($this->file_level.$this->theme_dir.'/'.$pages[$p].".php"))
 				{
-					include $this->file_level.$pages[$p].".php";
+					ob_start();
+
+					include $this->file_level.$this->theme_dir.'/'.$pages[$p].".php";
+
+					$html.= ob_get_clean();
 				}
-			}			
+			}
+			
+			$html = $this->ThemeMergeCallback($html);
+
+			return $html;
 		}
 		
 		function LoadPage()
 		{
+			ob_start();
+
 			$request_uri = $this->FetchCleanRequestURI();			
 						
 			if($request_uri == '/')
 			{
-				include "home/content.php";				
+				if(file_exists("home/content.php"))
+				{
+					include "home/content.php";
+				}								
 			}
 			else
 			{
-				include "content.php";				
-			}			
+				if(file_exists("content.php"))
+				{
+					include "content.php";
+				}				
+			}
+			
+			$html = ob_get_clean();
+			
+			return $html;
 		}
 		
 		function AssembleTheme()
@@ -221,9 +270,11 @@
 			}
 						
 			//Load theme and current page content
-			$this->ThemeHeader();
-			$this->LoadPage();
-			$this->ThemeFooter();
+			$page_output = $this->ThemeHeader();
+			$page_output.= $this->LoadPage();
+			$page_output.= $this->ThemeFooter();
+
+			$this->Display($page_output);
 		}		
 		
 		function ConditionalCSSAsset($uri, $asset, $cdn = false)

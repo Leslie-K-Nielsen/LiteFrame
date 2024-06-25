@@ -12,5 +12,3 @@
 	
 	//Connect to the server
 	$db->Connect();
-
-?>

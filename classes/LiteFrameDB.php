@@ -1,8 +1,7 @@
 <?php 
 
 	/* 
-		LiteFrame by Leslie K. Nielsen	
-		
+		LiteFrame by Leslie K. Nielsen			
 		Rights to the original framework in all forms remains in place with a GNU Public license.
 	*/
 

@@ -4,12 +4,11 @@
 
 	require 'classes/dbconnect.php';
 	require 'classes/LiteFrameCore.php';
-	
+	require 'classes/ViewParsers.php';
+
 	/* End Application Pre-Assembly */
 		
 	
-	//Insert your classes here
+	//Insert your classes here - (inheritance only)
 	
-	require 'classes/Assembler.php';
-
-?>
+	require 'classes/Implementation.php';
