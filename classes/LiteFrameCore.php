@@ -517,5 +517,37 @@
 			
 			return '{"is_valid":'.$is_valid.',"message":"'.$message.'"}';
 		}
+
+		function ImplodeAssociativeArray($array, $index, $glue, $surroundchar = "", $numeric_idx = false)
+		{
+			$output_string = "";
+
+			if($numeric_idx)
+			{
+				if(isset($array[0]))
+				{
+					for($i = 0; $i < count($array); $i++)
+					{
+						$output_string.= $surroundchar . $array[$i] . $surroundchar . $glue;	
+					}
+	
+					$output_string = rtrim($output_string, ",");
+				}
+			}
+			else
+			{
+				if(isset($array[0]))
+				{
+					foreach($array as $row)
+					{
+						$output_string.= $surroundchar . $row[$index] . $surroundchar . $glue;	
+					}
+	
+					$output_string = rtrim($output_string, ",");
+				}
+			}		
+
+			return $output_string;
+		}
 	}	
 ?>
