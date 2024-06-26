@@ -1,3 +1,3 @@
     <header>
-        <img src="{{incfilelevel}}img/logo.png" alt="LiteFrame Logo">
+        <img src="{{incfilelevel}}{{active-theme-dir}}/img/logo.png" alt="Logo">
     </header>
