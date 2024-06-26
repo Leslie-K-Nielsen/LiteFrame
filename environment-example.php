@@ -18,20 +18,33 @@ $smtp_variables = array(
 
 /* Theme parts */
 $theme_parts = array(
-    'header-parts' => array(
-        'assets-header',
-        'content-header'
+    'theme' => array(
+        'header-parts' => array(
+            'assets-header',
+            'content-header',
+            'top-navigation'
+        ),
+        'footer-parts' => array(
+            'content-footer',
+            'assets-footer'
+        )
     ),
-    'footer-parts' => array(
-        'content-footer',
-        'assets-footer'
+    'theme-2' => array(
+        'header-parts' => array(
+            'assets-header',
+            'content-header',
+            'aside-navigation'
+        ),
+        'footer-parts' => array(
+            'assets-footer'
+        )
     )
 );
 
 /* Init Environment Variables */
 $env_vars = array(
-    'theme_parts' => $theme_parts,
-    'theme_dir' => 'theme'
+    'theme_dir' => 'theme',
+    'theme_parts' => $theme_parts  
 );
 
 /* Instance Dependant Variables */	

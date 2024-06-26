@@ -1,1 +1,2 @@
-<?php include "../index.php";
+<?php
+include "../index.php";

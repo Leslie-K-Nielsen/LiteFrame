@@ -14,7 +14,11 @@
 		public $user_host;
 		public $default_nav_uri;
 		public $dev_uri;
-				
+		
+		public $theme_parts;
+		public $theme_dir;
+		public $theme_dir_parts;
+
 		/* END OF GLOBALS */
 		
 		
@@ -41,8 +45,9 @@
 
 		public function SetEnvVars($env_vars)
 		{
-			$this->theme_parts = $env_vars['theme_parts'];
 			$this->theme_dir = $env_vars['theme_dir'];		
+			$this->theme_parts = $env_vars['theme_parts'];	
+			$this->theme_dir_parts = $env_vars['theme_parts'][$this->theme_dir];
 		}
 		
 		/* ------------------------------- */
@@ -179,12 +184,18 @@
 		{
 			$html = (str_replace("{{incfilelevel}}", $this->file_level, $html));
 
+			//Set alternate theme name
+			if(stristr($html, '{{active-theme-dir}}'))
+			{
+				$html = (str_replace("{{active-theme-dir}}", $this->theme_dir, $html));
+			}
+
 			return $html;
 		}
 
 		function ThemeHeader()
 		{
-			$pages = $this->theme_parts['header-parts'];
+			$pages = $this->theme_dir_parts['header-parts'];
 			
 			$html = "";
 
@@ -207,7 +218,7 @@
 		
 		function ThemeFooter()
 		{
-			$pages = $this->theme_parts['footer-parts'];
+			$pages = $this->theme_dir_parts['footer-parts'];
 
 			$html = "";
 
@@ -254,14 +265,13 @@
 			return $html;
 		}
 		
-		function AssembleTheme()
+		function AssembleTheme($modifiers)
 		{
 			$request_uri = $this->FetchCleanRequestURI();			
 			
 			if($request_uri == '/')
 			{
 				//Uncomment to lock down home directory
-				//$this->EnforceAuthentication();
 				$this->file_level = '';				
 			}
 			else
@@ -269,6 +279,20 @@
 				$this->file_level = '../';				
 			}
 						
+			if($modifiers['include_level_modifier'])
+			{
+				for($m = 0; $m < $modifiers['include_level_modifier']; $m++)
+				{
+					$this->file_level.= '../';
+				}
+			}
+
+			if($modifiers['theme_modifier'])
+			{
+				$this->theme_dir = $modifiers['theme_modifier'];		
+				$this->theme_dir_parts = $this->theme_parts[$this->theme_dir];
+			}
+
 			//Load theme and current page content
 			$page_output = $this->ThemeHeader();
 			$page_output.= $this->LoadPage();
