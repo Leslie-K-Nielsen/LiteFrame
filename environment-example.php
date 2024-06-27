@@ -27,7 +27,8 @@ $theme_parts = array(
         'footer-parts' => array(
             'content-footer',
             'assets-footer'
-        )
+        ),
+        'deployments' => false
     ),
     'theme-2' => array(
         'header-parts' => array(
@@ -37,6 +38,10 @@ $theme_parts = array(
         ),
         'footer-parts' => array(
             'assets-footer'
+        ),
+        'deployments' => array(
+            'docs',
+            'your_deployment_subdirectory_2'   
         )
     )
 );

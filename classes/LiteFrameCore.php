@@ -12,6 +12,7 @@
 		public $file_level;		
 		public $dynamic_header_text;
 		public $user_host;
+		public $user_uri;
 		public $default_nav_uri;
 		public $dev_uri;
 		
@@ -31,6 +32,7 @@
 		{
 			$this->db_object = $db;			
 			$this->user_host = $_SERVER['HTTP_HOST'];
+			$this->user_uri = $_SERVER['REQUEST_URI'];
 			$this->default_nav_uri = "home";
 			$this->dev_uri = "";//name this after the directory of dev or sub folder
 		}
@@ -188,6 +190,21 @@
 			if(stristr($html, '{{active-theme-dir}}'))
 			{
 				$html = (str_replace("{{active-theme-dir}}", $this->theme_dir, $html));
+			}
+
+			//Set theme location uri 
+			if(stristr($html, '{{theme-deployment-dir}}') && $this->theme_dir_parts['deployments'])
+			{
+				foreach($this->theme_dir_parts['deployments'] as $deployment)
+				{
+					echo "DEP {$deployment} URI {$this->user_uri} <br />";
+					if(stristr($this->user_uri, $deployment))
+					{
+						$deployment_dir = '/' . $deployment . '/';
+						
+						$html = (str_replace("{{theme-deployment-dir}}", $deployment_dir, $html));
+					}					
+				}				
 			}
 
 			return $html;
