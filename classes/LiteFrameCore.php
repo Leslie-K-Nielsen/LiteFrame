@@ -288,6 +288,7 @@
 			}
 			
 			$html = ob_get_clean();
+			$html = $this->ThemeMergeCallback($html);
 			
 			return $html;
 		}
