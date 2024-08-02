@@ -13,12 +13,16 @@
 		public $dynamic_header_text;
 		public $user_host;
 		public $user_uri;
-		public $default_nav_uri;
-		public $dev_uri;
 		
+		public $instance;
+
 		public $theme_parts;
 		public $theme_dir;
 		public $theme_dir_parts;
+
+		public $dev_app_path;
+		public $qa_app_path;
+		public $production_app_path;
 
 		/* END OF GLOBALS */
 		
@@ -33,8 +37,6 @@
 			$this->db_object = $db;			
 			$this->user_host = $_SERVER['HTTP_HOST'];
 			$this->user_uri = $_SERVER['REQUEST_URI'];
-			$this->default_nav_uri = "home";
-			$this->dev_uri = "";//name this after the directory of dev or sub folder
 		}
 		
 		/* END OF CONSTRUCTOR */
@@ -47,9 +49,17 @@
 
 		public function SetEnvVars($env_vars)
 		{
+			$this->instance = $env_vars['instance'];
+			
+			//Theme assembly
 			$this->theme_dir = $env_vars['theme_dir'];		
 			$this->theme_parts = $env_vars['theme_parts'];	
 			$this->theme_dir_parts = $env_vars['theme_parts'][$this->theme_dir];
+
+			//For instances running in a subdirectory
+			$this->dev_app_path = $env_vars['dev_app_path'];
+			$this->qa_app_path = $env_vars['qa_app_path'];
+			$this->production_app_path = $env_vars['production_app_path'];			
 		}
 		
 		/* ------------------------------- */
@@ -451,8 +461,32 @@
 			if(stristr($request_uri, '?'))
 			{
 				$request_uri = substr($request_uri, 0, strpos($request_uri, "?"));//Strip the query string if exists
-			}		
-			//$request_uri = str_replace('/[ALTDIRECTORY]','',$request_uri);			
+			}
+			
+			//Sets path for instances located in a subdirectory as part of the resolving domain or localhost
+			switch($this->instance)
+			{
+				case 'dev':
+					if(!empty($this->dev_app_path))
+					{
+						$request_uri = str_replace('/'.$this->dev_app_path,'',$request_uri);
+					}
+					break;
+				case 'qa':
+					if(!empty($this->qa_app_path))
+					{
+						$request_uri = str_replace('/'.$this->qa_app_path,'',$request_uri);
+					}	
+					break;
+				case 'production':
+					if(!empty($this->production_app_path))
+					{
+						$request_uri = str_replace('/'.$this->production_app_path,'',$request_uri);
+					}
+					break;			
+				default:
+					break;	
+			}						
 			
 			return $request_uri;
 		}

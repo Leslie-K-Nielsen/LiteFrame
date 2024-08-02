@@ -48,8 +48,12 @@ $theme_parts = array(
 
 /* Init Environment Variables */
 $env_vars = array(
+    'instance' => $this_instance,
     'theme_dir' => 'theme',
-    'theme_parts' => $theme_parts  
+    'theme_parts' => $theme_parts,
+    'dev_app_path' => '',
+    'qa_app_path' => '',
+    'production_app_path' => ''    
 );
 
 /* Instance Dependant Variables */	
