@@ -4,6 +4,7 @@
 
 	require 'classes/dbconnect.php';
 	require 'classes/LiteFrameCore.php';
+	require 'classes/Request.php';
 	require 'classes/ViewParsers.php';
 
 	/* End Application Pre-Assembly */

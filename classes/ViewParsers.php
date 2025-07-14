@@ -1,6 +1,6 @@
 <?php
 
-	class ViewParsers extends LiteFrameCore
+	class ViewParsers extends Request
 	{
 		/* OUTPUT PARSING AND DISPLAY */
 		
@@ -39,9 +39,26 @@
 			}
 		}
 		
-		function FetchTemplate($location, $template_name)
+		function FetchTemplate($location, $template_name, $level = false)
 		{
-			return file_get_contents($this->GetFileLevel().'templates/'.$location.'/'.$template_name.'.php');
+			$file_levels = "";
+
+			if($level)
+			{
+				for($i = 0; $i < $level; $i++)
+				{
+					$file_levels.= "../";
+				}
+			}
+			
+			if(file_exists($file_levels.'templates/'.$location.'/'.$template_name.'.php'))
+			{
+				return file_get_contents($file_levels.'templates/'.$location.'/'.$template_name.'.php');	
+			}
+			else
+			{
+				return '{"is_valid":0,"message":"Template not found. Check name and file level for accuracy."}';
+			}			
 		}
 		
 		function ParseGeneralSelectObject($array, $markup, $selected_id)

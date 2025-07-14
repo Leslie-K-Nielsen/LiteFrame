@@ -5,7 +5,7 @@
 	require '../environment.php';
 	require '../app_config.php';
 		    	
-	$obj = new Assembler($db);	
+	$obj = new Implementation($db);	
 	
 	$obj->SetEnvVars($env_vars);
 			
