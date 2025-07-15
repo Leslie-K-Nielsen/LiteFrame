@@ -51,7 +51,7 @@ $env_vars = array(
     'instance' => $this_instance,
     'theme_dir' => 'theme',
     'theme_parts' => $theme_parts,
-    'dev_app_path' => '',
+    'dev_app_path' => 'liteframe',
     'qa_app_path' => '',
     'production_app_path' => ''    
 );

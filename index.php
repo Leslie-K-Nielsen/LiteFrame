@@ -5,7 +5,7 @@
 	require 'environment.php';
 	require 'app_config.php';
 	
-	$obj = new Implementation($db);
+	$obj = new Assembler($db);
 	
 	//Set environment variables to initialize the object
 	$obj->SetEnvVars($env_vars);

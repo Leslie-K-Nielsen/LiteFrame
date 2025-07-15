@@ -1,6 +1,6 @@
 <?php
 
-class Request extends LiteFrameCore
+class LFRequests extends LiteFrameCore
 {
     public static function get($key, $default = null)
     {

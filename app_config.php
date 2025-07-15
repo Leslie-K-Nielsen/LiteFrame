@@ -4,12 +4,48 @@
 
 	require 'classes/dbconnect.php';
 	require 'classes/LiteFrameCore.php';
-	require 'classes/Request.php';
-	require 'classes/ViewParsers.php';
+	require 'classes/LFRequests.php';
 
 	/* End Application Pre-Assembly */
-		
 	
-	//Insert your classes here - (inheritance only)
 	
-	require 'classes/Implementation.php';
+	//--------
+
+	
+	/* Controllers */
+	
+	//Controller Assembler extends to Models
+	require 'classes/Controllers/Controller_Assembler.php';
+
+	/* End Controllers */
+
+
+	//--------
+
+	
+	/* Models */
+
+	
+	//Model Assembler extends to Views
+	require 'classes/Models/Model_Assembler.php';
+	
+	/* End  Models */
+
+	//--------
+
+	
+	/* Views */
+	
+	require 'classes/Views/Parsers.php';
+	
+	/* End Views */
+	
+	
+	//--------
+	
+	
+	/* Application Assembly */
+	
+	require 'classes/Assembler.php';
+	
+	/* End Application Assembly */

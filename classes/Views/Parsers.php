@@ -1,6 +1,6 @@
 <?php
 
-	class ViewParsers extends Request
+	class Parsers extends Model_Assembler
 	{
 		/* OUTPUT PARSING AND DISPLAY */
 		
